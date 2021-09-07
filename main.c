@@ -2,8 +2,8 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<unistd.h>
-#include"tiktak.c"
-//#include"function1.c"
+#include"tic_tac_toe.c"
+
 #define  z 3
 
 			
