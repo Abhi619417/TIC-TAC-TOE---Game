@@ -22,7 +22,7 @@ class Computer{
         Computer(Board *board,int id){
             this->board=board;
             size=board->getSize();
-            id=num;
+            this->id=id;
         }
     private:
         bool easy(){
