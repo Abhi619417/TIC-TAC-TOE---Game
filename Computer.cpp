@@ -16,13 +16,18 @@ class Computer{
         Board *board;
         // used in func find and nextMove to store the row and column value for  corresponding magic number 
         int row=0,column=0;
+        //for level 2 (hard) to place first move func:nextMove(); 
+        bool flag=true;;
 
     public:
+        //for level 2 (hard) to place first move func:nextMove();
+         
         //constructor to store the board and id ie 0 or 1 
         Computer(Board *board,int id){
             this->board=board;
             size=board->getSize();
             this->id=id;
+            flag=true;
         }
     private:
         bool easy(){
@@ -125,13 +130,13 @@ class Computer{
 
                 //along secondary diagonal
                 if(board->board[i][k]=='O'){ //computer
-                    pd1count+=1;
-                    pd1+=magic_number[i][k];
+                    sd1count+=1;
+                    sd1+=magic_number[i][k];
                 }
                 
                 if(board->board[i][k]=='X'){ //user
-                    pd2count+=1;
-                    pd2+=magic_number[i][k];
+                    sd2count+=1;
+                    sd2+=magic_number[i][k];
                 }
                 //decrementing column value
                 k=k-1;
@@ -184,16 +189,29 @@ class Computer{
                 if(board->input(this->row,this->column,id)) return true;
             }
 
-            //first move of computer 
+            //first move of computer for level 2
+            if(level==2 && flag){
+                flag=false;
+                if(easy()) return true;
+                
+            }
+            //first move for level 3
             if(board->input(size/2+1,size/2+1,id)) return true; //middle position;
 
-            //if level is hard and user tries to trap by putting values at opposite diagonal
+            //if level is hard and user tries to trap            
             //to counter it           
             if(level==3 && (pd2count==2 || sd2count==2) ){
+                if(board->board[size/2][size/2]=='X'){
+                    //if user tries to trap with middle and any corner element
+                    if (board->input(1,size,id)) return true; 
+                    if(board->input(size,1,id)) return true; 
+                }
+                //by putting values at opposite diagonal
+ 
                 if(board->input(size-1,1,id)) return true;
                 if(board->input(size-1,size,id)) return true;
             }
-                    
+
             //if the level is medium user trying to trap 
             //computer will be traped
             if (board->input(1,1,id)) return true; //first move  if middle position is filled by user
