@@ -20,7 +20,7 @@ class Computer{
         bool flag=true;;
 
     public:
-        //for level 2 (hard) to place first move func:nextMove();
+        
          
         //constructor to store the board and id ie 0 or 1 
         Computer(Board *board,int id){
